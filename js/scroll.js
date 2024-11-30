@@ -1,4 +1,6 @@
 import * as d3 from "d3";
+import scrollama from 'scrollama';
+
 const WIDTH = 1100;
 const HEIGHT = 800;
 const MARGINS = {
@@ -8,7 +10,7 @@ const MARGINS = {
     LEFT:   40,
 };
 
-const data = await d3.csv('./data/data.csv')
+const data = await d3.csv('/visualizing-police-violence/data/data.csv')
 console.log("This is my data",data)
 
 //------------------------------------------

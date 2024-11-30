@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
+import { ghPages } from 'vite-plugin-gh-pages';
 
 export default defineConfig({
-	base: '/police-violence/', // Replace with your repository name
+	plugins: [ghPages()],
+	base: '/visualizing-police-violence/', // Replace with your repository name
 	build: {
 		target: 'esnext',
 	},
