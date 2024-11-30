@@ -28,7 +28,6 @@ figure {
 }
 
 .step {
-    /* margin: 0 auto 45rem auto; */
     margin-bottom: 85rem;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.451);
@@ -40,22 +39,21 @@ figure {
     margin-bottom: 0;
 }
 
-.step.is-active p {
-    background-color: #E15759;
-    color: white;
+/* .step.is-active{
+    background-color: #b9b9b92a;
+    color: rgb(255, 255, 255);
 
-}
+} */
 
 .step p {
     text-align: center;
     padding: 1rem;
-    /* font-size: 1rem; */
     background-color: #272727;
 }
 
 .title{
-    padding: 3rem;
-    font-size: 1.5rem;
+    padding: 2rem;
+    font-size: 1.2rem;
 }
 
 

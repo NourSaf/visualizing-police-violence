@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import scrollama from 'scrollama';
 
-const WIDTH = 1100;
-const HEIGHT = 800;
+const WIDTH = window.innerWidth - 500;
+const HEIGHT = window.innerHeight - 300;
 const MARGINS = {
     TOP:    10,
     RIGHT:  10,
@@ -134,9 +134,9 @@ const colorScale_chartOne = d3.scaleOrdinal()
 
 const chartOneContainer = d3.select('#ChartOne')
     .append('svg')
-    .attr('width', WIDTH + 100)
+    .attr('width', WIDTH)
     .attr('height', HEIGHT)
-    .attr('viewBox', [0, 0, WIDTH, HEIGHT])
+    .attr('viewBox', [0, -50, WIDTH +100, HEIGHT+100])
 
 // Append the horizontal axis
 chartOneContainer.append("g")
@@ -271,8 +271,8 @@ console.log("This is second Chart Stacked", stacked_secondChart)
 //------------------------------------------------------------------------------------
 // Setting up scales for the second chart
 //------------------------------------------------------------------------------------
-const sec_WIDTH = 1500;
-const sec_HEIGHT = 700;
+const sec_WIDTH = window.innerWidth - 200;
+const sec_HEIGHT = window.innerHeight - 250;
 const sec_MARGINS = {
     TOP:    90,
     RIGHT:  10,
@@ -349,8 +349,6 @@ sec_chartContainer.append('g')
 
 const sec_legend = sec_chartContainer.append('g')
         .attr('class', 'second-legend')  
-        // .attr("text-anchor", "start")
-        // .attr("x", )
         .selectAll('g')
         .data(stacked_secondChart)
         .enter()
@@ -371,9 +369,8 @@ const sec_legend = sec_chartContainer.append('g')
         .text(({key}) => key + " | "+ `Total: ${d3.sum(secondChartData.filter(item => item.type === key).map(item => item.total))}`)
     
 //------------------------------------------------------------------------------------
+// Third Chart -> Treemap 
 // Note: every FADO type should be explaind with text.
-// https://www.youtube.com/playlist?list=PLdJuTVexUXU3pShDMI9kbRJ8QjfWCLcQ1 (Interaction)
-// https://www.youtube.com/watch?v=M3kbQnXeFnY
 //------------------------------------------------------------------------------------
 const fado_alligation = d3.rollup(data, 
     (v) => v.length,
@@ -400,15 +397,15 @@ console.log("This is my bubbel chart object",tree_data)
 // Creating a Treemap 
 //------------------------------------------------------------------------------------
 
-const treeH = 1300; 
-const treeW = 1300;
+const treeH = window.innerWidth / 2.2; 
+const treeW = window.innerHeight;
 const treeL = 300; 
 
 const tree_container = d3.select('#chartThree')
     .append('svg')
     .attr('height', treeH)
-    .attr('width', treeW )
-    .attr('viewBox', [0,-100, treeH , treeW])
+    .attr('width', treeW)
+    .attr('viewBox', [0,-40, treeW, treeH+40])
 
 const tree_color = d3.scaleOrdinal(d3.schemeTableau10)
 
@@ -422,7 +419,7 @@ console.log("hierarchy",hierarchy)
 
 
 const treemap = d3.treemap()
-    .size([treeW, treeH-100])
+    .size([treeW, treeH])
     .paddingInner(1)
     (hierarchy)
 
@@ -479,17 +476,17 @@ const legend_tree = tree_container.append('g')
     
 
 legend_tree.append('rect')
-    .attr('x', treeW/2 -230)
-    .attr('y', -60)
+    .attr('x', treeW/2 - 420)
+    .attr('y', -30)
     .attr('width', 19)
     .attr('height', 19)
     .attr('fill', d => tree_color(parentArray.indexOf(d)));
 
 legend_tree.append('text')
-    .attr('x', treeW/2 -240)
-    .attr('y',-50)
+    .attr('x', treeW/2 - 395)
+    .attr('y',-20)
     .attr('dy', '0.32em')
-    .attr('text-anchor', 'end')
+    .attr('text-anchor', 'start')
     .text(d => d.data.name)
     .attr('fill','white');
 
@@ -524,13 +521,13 @@ console.log("this is Ranks", bubbelMap)
 // Setup chart's dimentions 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-const bubbelW = 1100, bubbelH = 1100;
+const bubbelW = window.innerWidth-200 , bubbelH = window.innerHeight-200;
 
 const bubbel_container = d3.select('#chartFour')
     .append('svg')
     .attr('width', bubbelW)
     .attr('height', bubbelH)
-    .attr('viewBox', [0, 0, bubbelH , bubbelW])
+    .attr('viewBox', [0, 0, bubbelW , bubbelH])
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Setup color scale
@@ -584,29 +581,6 @@ node.append("text")
 //------------------------------------------------------------------------------------
 // Adding a legend for the bubble chart
 //------------------------------------------------------------------------------------
-const uniqueTypes = Array.from(new Set(packed.descendants().filter(d => !d.children).map(d => d.data.type)));
-
-// const legend_bubble = bubbel_container.append('g')
-//     .attr('class', 'bubble-legend')
-//     .selectAll('g')
-//     .data(uniqueTypes)
-//     .enter()
-//     .append('g')
-//     .attr('transform', (_, i) => `translate(0,${i * 25})`);
-
-// legend_bubble.append('rect')
-//     .attr('x', -30)
-//     .attr('width', 20)
-//     .attr('height', 20)
-//     .attr('fill', d => bubbelColor(d));
-
-// legend_bubble.append('text')
-//     .attr('x', 0)
-//     .attr('y', 10)
-//     .attr('dy', '0.32em')
-//     .attr('text-anchor', 'start')
-//     .text(d => d)
-//     .attr('fill', 'white');
 
 const legend_rank = bubbel_container.append('g')
     .attr('class', 'rank-legend')
@@ -662,12 +636,12 @@ function handleResize() {
         .style("height", figureHeight + "px")
         .style("top", figureMarginTop + "px");
     scroller.resize();
+
 }
 
 function handleStepEnter(response) {
     console.log(response);
     let el = response.element.dataset.step
-    console.log(el)
     step.classed("is-active", function (d, i) {
         return i === response.index;
     });
@@ -698,9 +672,9 @@ const fadeIn = g => g.style('opacity', 0).transition().duration(600).style('opac
 const fadeOut = g => g.transition().duration(200).style('opacity',0)
 
 function responseChage(response) {
-    let el = response.element.dataset.step;
+    let el = response.index;
+    console.log('this is entering step', el);
     if (response.index === 0 && response.direction == 'down') {
-        console.log('this is entering step', el);
         figure.select('.div_0').style('opacity', 0);
         figure.append('div').attr('class', 'chart_1').append(() => chartOneContainer.node()).call(fadeIn);
     }
@@ -741,10 +715,24 @@ function responseChage(response) {
 function responseChangeExit(response) {
     let el = response.element.dataset.step;
     if (response.index === 0 && response.direction == 'up') {
-        console.log('Exiting the step', el);
         figure.select('.chart_1').call(fadeOut).remove();
         figure.select('.div_0').call(fadeIn);
-    } 
+    } else if (response.index === 1 && response.direction == 'up') {
+            figure.selectAll('rect')
+            .transition().duration(700)
+            .style('opacity', 1)
+    } else if (response.index === 2 && response.direction =='up'){
+        figure.select('.Female').transition().duration(700).style('opacity', 1)
+        figure.selectAll('rect')
+                .transition().duration(700)
+                .style('opacity', function() {
+                    return d3.select(this).attr('class') === 'Black' ? 1 : 0.2;
+                });
+    } else if (response.index === 3 && response.direction == 'up'){
+        figure.select('.Male').transition().duration(700).style('opacity', 1)
+        figure.select('.Female').transition().duration(700).style('opacity', 0.2)
+
+    }
     else if (response.index === 4 && response.direction == 'up') {
         figure.select('.chart_2').call(fadeOut).remove();
         figure.append('div').attr('class', 'chart_1').append(() => chartOneContainer.node()).call(fadeIn);
