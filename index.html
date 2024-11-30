@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/global.css">
+    
+    <title>Document</title>
+</head>
+<body>
+	<a href="./processing.html"></a>
+    
+    <main>
+        <section id="intro">
+			<h1 class="intro__hed"> <span class="highlight">POLICE USE</span><br><span class="highlight">OF POWER</span> <br><span class="highlight">IN NEW YORK</span></h1>
+			<div class="intro__dek">
+				<p >FINAL PROJECT || Data Visualization and Information Aesthetics || Fall 2024</p>
+				<div class="btn">SCROLL TO DISCOVER</div>
+			</div>
+		</section>
+        <section id="scrolly">
+			<figure>
+				<div class="div_0">
+					This dataset, published by ProPublica, features records from NYC’s Civilian Complaint Review Board on substantiated allegations against NYPD officers. Covering cases from September 1985 to January 2020, it includes only closed cases where complaints were verified, excluding unfounded allegations.
+				</div>
+			</figure>
+
+			<article>
+
+				<div class="step" data-step="1">
+					<!-- <p class="chart-pharagraph" >Ethnicity and Gender Stacked Bar Chart</p> -->
+					<div class="title">The total cases from September 1985 to January 2020 is 33.358 cases.</div>
+				</div>
+				<div class="step" data-step="2">
+					<!-- <p class="chart-pharagraph" >Second Chart</p> -->
+					<div class="title">
+						<span class="important-info">51.30 % of the casses are by black persons. <br> With totale cases of 17114.
+					</span></div>
+				</div>
+				<div class="step" data-step="3">
+					<div class="title">
+						<span class="important-info">
+							72.12% of the casses are registered by Males 
+					</span></div>
+				</div>
+				<div class="step" data-step="4">
+					<div class="title">
+						<span class="important-info">
+							15.05% of the casses are registered by Females 
+						</span></div>
+				</div>
+				<div class="step" data-step="5"> 
+					<div class="title">
+					<span class="important-info">
+						The main categories registered are <span  class="case_01">Discourtesy with total of 4498 cases</span> <br>
+						and  <span class="case_02">Force with total of 7563 cases </span> <br>
+						and <span class="case_03"> Abuse of Authority with total of 19029 cases </span>
+					</span></div>
+				</div>
+				<div class="step" data-step="6">
+					<div class="title">
+					<span class="important-info">
+						There is more than 115 allegations, 15% of the allegations are physical force and 15% use of offensive language
+					</span></div>
+				</div>
+				<div class="step" data-step="7">
+					<div class="title">
+					<span class="important-info">
+						67% of the cases are registred against Police officers and 18% against Sergeants and 10% against detectives
+					</span></div>
+				</div>
+				<div class="step" data-step="8">
+				</div>
+
+					
+				</div>
+			</article>
+		</section>
+    </main>
+
+
+    <div class="landing-container"></div>
+    <div class="viz-container"></div>
+
+    <div class="main-container">
+        <div id="ChartOne" class="chartContainer"></div>
+        <div id="chartTwo" class="chartContainer"></div>
+        <div id="chartThree" class="chartContainer">
+			<div id="tree-legend"></div>
+		</div>
+		<div id="chartFour" class="chartContainer"></div>
+
+
+    </div>
+    <script src="./js/scroll.js" type="module" ></script>    
+    <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+    <script src="./js/scrollama.min.js" type="module"></script>
+
+    
+</body>
+</html>

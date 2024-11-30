@@ -1,0 +1,27 @@
+{
+    "name": "default-template",
+    "version": "1.0.0",
+    "description": "",
+    "main": "scoll.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "deploy": "vite build && gh-pages -d dist"
+    },
+    "keywords": [],
+    "author": "Nour Al Safadi",
+    "license": "ISC",
+    "dependencies": {
+        "d3": "^7.9.0",
+        "intersection-observer": "^0.12.2",
+        "leaflet": "^1.9.4",
+        "leaflet.markercluster": "^1.5.3",
+        "scrollama": "^3.2.0",
+        "vite": "^5.4.2"
+    },
+    "devDependencies": {
+        "gh-pages": "^6.2.0"
+    }
+}
