@@ -72,3 +72,25 @@ body{
 .chart-pharagraph{
   font-size: 10px;
 }
+
+#outro {
+  max-width: 100%;
+  margin: 0rem auto;
+  text-align: center;
+  padding-top: 20%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white; 
+  background-color:#111111;
+  position: relative;
+  z-index: 1000;
+  line-height: 230%;
+}
+.arrow{
+  font-size: 1.3rem;
+}
+.outtro__hed{
+  color: #ffffff;
+}

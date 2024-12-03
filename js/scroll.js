@@ -11,7 +11,7 @@ const MARGINS = {
 };
 
 const data = await d3.csv('/visualizing-police-violence/data/data.csv')
-console.log("This is my data",data)
+// console.log("This is my data",data)
 
 //------------------------------------------
 // FIRST CHART DATA PROCESSING
@@ -25,8 +25,8 @@ first we have and we have mising values in the ethnicity we need to filter them 
 const totalCases = data.length;
 const blackCases = data.filter(d => d.complainant_ethnicity === "Black").length;
 const blackCasesPercentage = `${((blackCases / totalCases) * 100).toFixed(2)}%`;
-console.log('This is total back cases', blackCases)
-console.log("Percentage of Black cases: " + blackCasesPercentage);
+// console.log('This is total back cases', blackCases)
+// console.log("Percentage of Black cases: " + blackCasesPercentage);
 
 const maleCases = data.filter(d => d.complainant_gender === "Male").length;
 const femaleCases = data.filter(d => d.complainant_gender === "Female").length;
@@ -34,8 +34,8 @@ const femaleCases = data.filter(d => d.complainant_gender === "Female").length;
 const maleCasesPercentage = `${((maleCases / totalCases) * 100).toFixed(2)}%`;
 const femaleCasesPercentage = `${((femaleCases / totalCases) * 100).toFixed(2)}%`;
 
-console.log("Percentage of Male cases: " + maleCasesPercentage);
-console.log("Percentage of Female cases: " + femaleCasesPercentage);
+// console.log("Percentage of Male cases: " + maleCasesPercentage);
+// console.log("Percentage of Female cases: " + femaleCasesPercentage);
 
 
 function condition (d) {
@@ -50,7 +50,7 @@ const ethnicity_gender = d3.rollup(filteredData_chartOne,
     (d) => d.complainant_ethnicity,
     (e) => e.complainant_gender
 );
-console.log("This is Ethnictiy/Gender Map: ", ethnicity_gender)
+// console.log("This is Ethnictiy/Gender InternMap: ", ethnicity_gender)
 
 /* 
 /Converting the d3 InternMap to array of objects 
@@ -65,7 +65,7 @@ const chart_one_processed =  Array.from(ethnicity_gender,([ethnicity, gender]) =
         }
     )
 )
-console.log("This is data procesed",chart_one_processed)
+// console.log("From InternMap to objetcs",chart_one_processed)
 
 const chartOneData  = chart_one_processed
     .flatMap(d => 
@@ -78,7 +78,7 @@ const chartOneData  = chart_one_processed
     }))
 )
 
-// console.log("this is ChartOne Data Object structure", chartOneData)
+console.log("Flatened Array of objects", chartOneData)
 
 //------------------------------------------
 // For stacked_chartOne bar chart or steamgraphs we should use stacked_chartOne. 
@@ -99,12 +99,12 @@ const chartOne_grouped = d3.flatRollup(
         ),
     yValue_chartOne,
 )
-// console.log("This is chartOne_grouped data: ",chartOne_grouped)
+console.log("This is chartOne_grouped data: ",chartOne_grouped)
 
 const stacked_chartOne = d3.stack()
     .keys(chartOne_grouped[0][1].keys())
     .value((d, key) => d[1].get(key))(chartOne_grouped)
-// console.log('This is stacked_chartOne',stacked_chartOne)
+console.log('This is stacked_chartOne',stacked_chartOne)
 
 //------------------------------------------------------------------------------------
 // Setting up scales, xScale_chartOne, yScale_chartOne and colorScale_chartOne
@@ -215,7 +215,7 @@ const year_type = d3.rollup(
         (d) => d.year_received,
         (e) => e.fado_type,
 )
-console.log("This is year type Map", year_type)
+// console.log("This is year type Map", year_type)
 
 //convert the map to an object
 const year_type_objects = Array.from(year_type, ([year,type])=>(
@@ -225,7 +225,7 @@ const year_type_objects = Array.from(year_type, ([year,type])=>(
         }
     )
 )
-console.log("This is year type array of objects", year_type_objects)
+// console.log("This is year type array of objects", year_type_objects)
 
 const secondChartData = year_type_objects
     .flatMap(d => Object.entries(d)
@@ -236,7 +236,7 @@ const secondChartData = year_type_objects
             total:total
         })))
 
-console.log("This is second chart Data", secondChartData)
+// console.log("This is second chart Data", secondChartData)
 
 //------------------------------------------------------
 // Prepare data for stacked and get the values for axex
@@ -257,7 +257,7 @@ const secondChart_group = d3.flatRollup(
         ),
         yValue_secondChat,
 )
-console.log("This is secondChart_Group", secondChart_group)
+// console.log("This is secondChart_Group", secondChart_group)
 
 //Stacked function 
 //Here for the steam graph we need .offset and .order 
@@ -299,6 +299,7 @@ const area_secondChart = d3.area()
     .x( d => xScale_secondChart(d.data[0]))
     .y0(d => yScale_secondChart(d[0]))
     .y1(d => yScale_secondChart(d[1]));
+console.log('this is area', area_secondChart)
 
 const sec_chartContainer = d3.select('#chartTwo')
     .append('svg')
@@ -377,7 +378,7 @@ const fado_alligation = d3.rollup(data,
     (d) => d.fado_type,
     (d) => d.allegation,
 )
-console.log("This is FADO/sAllegation Map", fado_alligation)
+// console.log("This is FADO/sAllegation Map", fado_alligation)
 
 //parent child chirarhy name and children
 const tree_data = Array.from(fado_alligation, ([type, allegation]) => (
@@ -422,14 +423,14 @@ const treemap = d3.treemap()
     .size([treeW, treeH])
     .paddingInner(1)
     (hierarchy)
-
+console.log('Treemap',treemap)
 //------------------------------------------------------------------------------------
 // going to the depth of the treemap to have childeren and parents data seperatly 
 //------------------------------------------------------------------------------------
 
 const parentArray = treemap.descendants().filter(d => d.depth==1);
 const childerenArray = treemap.descendants().filter(d => d.depth==2);
-
+console.log("this is parent Array", parentArray)
 const matchParent = (type) => {
     const paAr = parentArray.findIndex(d => d.data.name == type);
     return paAr
@@ -515,7 +516,7 @@ const bubbelMap = Array.from(bubbelDataRollup, ([rank, types]) => ({
     }))
     
 }))
-console.log("this is Ranks", bubbelMap)
+// console.log("this is Ranks", bubbelMap)
 
 //––––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Setup chart's dimentions 
@@ -543,7 +544,7 @@ const bubbelHierarchy = d3.hierarchy({children : bubbelMap})
     .sum(d => d.total)
     .sort((a,b) => b.value - a.value)
 
-console.log("this is bubbel hieraaryl", bubbelHierarchy)
+// console.log("this is bubbel hieraaryl", bubbelHierarchy)
 
 const bubbelPack = data => d3.pack()
     .size([bubbelW, bubbelH])
@@ -650,7 +651,7 @@ function handleStepEnter(response) {
 }
 
 function handelStepExit (response) {
-    console.log(response)
+    // console.log(response)
     responseChangeExit(response)
 }
 function init() {
@@ -673,7 +674,7 @@ const fadeOut = g => g.transition().duration(200).style('opacity',0)
 
 function responseChage(response) {
     let el = response.index;
-    console.log('this is entering step', el);
+    // console.log('this is entering step', el);
     if (response.index === 0 && response.direction == 'down') {
         figure.select('.div_0').style('opacity', 0);
         figure.append('div').attr('class', 'chart_1').append(() => chartOneContainer.node()).call(fadeIn);
